@@ -5,3 +5,23 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+require 'open-uri'
+require 'json'
+
+url = "https://tmdb.lewagon.com/movie/top_rated"
+
+response = URI.open(url).read
+json_response = JSON.parse(response)
+puts "destroying database"
+Movie.destroy_all
+puts "seeding database"
+json_response["results"].each do |movie|
+  puts "creating '#{movie["original_title"]}'"
+Movie.create(
+  title: movie["original_title"],
+  overview: movie["overview"],
+  poster_url: 'https://image.tmdb.org/t/p/original#{movie["poster_path"]}.jpg',
+  rating: movie["vote_average"]
+)
+end

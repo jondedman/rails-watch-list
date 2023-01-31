@@ -1,0 +1,8 @@
+<div class="container"><h1>Lists</h1>
+
+<% @lists.each do |item| %>
+<p><%= link_to item.name, list_path(item) %></p>
+
+<% end %>
+<p><%= link_to "Create a movie list", new_list_path, class: "btn btn-flat" %></p>
+</div>

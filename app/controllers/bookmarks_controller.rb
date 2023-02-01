@@ -17,6 +17,7 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
+    p "in the destroy method"
     @bookmark.destroy
     redirect_to list_path(@bookmark.list), status: :see_other
   end
